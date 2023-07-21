@@ -3,20 +3,29 @@ package com.thoughtworks.wallet;
 
 public class Wallet {
 
-    private Rupee balance ;
+    private Rupee rupeeBalance ;
+    private Dollar dollarBalance;
+    private Rupee totalBalance;
 
     public Wallet() throws Exception{
-        balance = new Rupee(0.0);
+        rupeeBalance = new Rupee(0.0);
+        dollarBalance = new Dollar(0.0);
     }
 
     public void put(Rupee ruppee) throws Exception{
         
-        balance = balance.add(ruppee);
+        rupeeBalance = rupeeBalance.add(ruppee);
+        totalBalance = totalBalance.add(rupeeBalance);
     }
 
     public Rupee balance() {
-        return balance;
+        return rupeeBalance;
     }
-
+    
+    public void put(Dollar dollar) throws Exception{
+        
+        dollarBalance = dollarBalance.add(dollar);
+        
+    }
     
 }

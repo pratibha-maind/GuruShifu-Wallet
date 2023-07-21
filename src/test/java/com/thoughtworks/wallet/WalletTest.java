@@ -44,4 +44,19 @@ public class WalletTest {
 
     }
 
+    @Test
+    public void shouldAbleToAddDollarWhenDollarIsGiven() throws Exception{
+        double amount =10;
+        Wallet wallet = new Wallet();
+
+        assertDoesNotThrow( () -> {
+            Dollar dollar = new Dollar(amount);
+        });
+
+        wallet.put(dollar);
+        
+        assertThat()
+
+
+    }
 }
