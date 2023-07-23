@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 public class WalletTest {
 
     @Test
-    public void shouldAbleToAddRupee() throws Exception{
+    public void shouldAbleToAddTenRupee() throws Exception{
         Wallet wallet = new Wallet();
-        double amount = 100;
-        double balance = 100;
+        double amount = 10;
+        double balance = 10;
 
         assertDoesNotThrow( () -> {
             Rupee rupee = new Rupee(amount);
@@ -45,7 +45,7 @@ public class WalletTest {
     }
 
     @Test
-    public void shouldAbleToAddDollarWhenDollarIsGiven() throws Exception{
+    public void shouldAbleToAddTenDollarWhenTenDollarIsGiven() throws Exception{
         double amount =10;
         double balance = 10;
         Wallet wallet = new Wallet();
@@ -73,6 +73,27 @@ public class WalletTest {
             Dollar dollar  = new Dollar(amount);
         });
 
+
+    }
+
+    @Test
+    public void shouldAbleToAddRupeeAndDollarAndProvideBalanceInRupee() throws Exception{
+        double amount = 2.0;
+        Wallet wallet  = new Wallet();
+
+        assertDoesNotThrow(() ->  {
+            Rupee rupee = new Rupee(amount);
+            Dollar dollar  = new Dollar(amount);
+        });
+
+        Rupee rupee = new Rupee(amount);
+        Dollar dollar  = new Dollar(amount);
+        wallet.put(rupee);
+        wallet.put(dollar);
+        Rupee expectedBalance = new Rupee(162.0);
+        Rupee actualBalance = wallet.getTotalBalance();
+
+        assertEquals(expectedBalance, actualBalance);
 
     }
 }

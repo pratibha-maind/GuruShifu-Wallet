@@ -14,6 +14,12 @@ public class Dollar {
         return new Dollar (this.value + dollar.getValue());
 
     }
+
+    public Rupee add (Rupee rupee) throws Exception{
+        double dollarToRupee = this.value + rupee.getValue() *80;
+        return new Rupee (dollarToRupee);
+
+    }
     private double getValue()
     {
         return this.value;
