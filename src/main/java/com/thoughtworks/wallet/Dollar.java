@@ -11,11 +11,31 @@ public class Dollar {
     }
 
     public Dollar add (Dollar dollar) throws Exception{
-        return new Dollar (this.value + dollar.getValue()* 82);
+        return new Dollar (this.value + dollar.getValue());
 
     }
     private double getValue()
     {
         return this.value;
+    }
+
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o)
+            return true;
+        if(! (o == null || getClass() == o.getClass())){
+            return false;
+        }
+
+        Dollar dollar = (Dollar) o;
+
+        return this.value == dollar.value;
+
+    }
+    @Override
+    public int hashCode() {
+        return Double.hashCode(value);
     }
 }

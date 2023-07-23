@@ -25,9 +25,14 @@ public class Rupee extends Exception{
     {
         if(this == o)
             return true;
-        if(! (o == null || getClass() == o.getClass())){
+        if( (o == null)){
             return false;
         }
+        if(! (getClass() == o.getClass()))
+        {
+            return false;
+        }
+
         Rupee rupee = (Rupee) o;
 
         return value == rupee.value;
