@@ -11,89 +11,79 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class WalletTest {
+public class WalletTest {go
+
 
     @Test
-    public void shouldAbleToAddTenRupee() throws Exception{
-        Wallet wallet = new Wallet();
-        double amount = 10;
-        double balance = 10;
+    public void shouldAddTenRupeeToWalletWhenGiven() throws Exception{
+        double amount = 10.0;
 
-        assertDoesNotThrow( () -> {
-            Rupee rupee = new Rupee(amount);
+        assertDoesNotThrow(() ->{
+            Money money  = new Money(amount, Money.currencyType.RUPEE);
         });
 
-        Rupee rupee = new Rupee(amount);
-        wallet.put(rupee);
-        Rupee actualAmount = wallet.getRupeeBalance();
-        Rupee expectedAmount = new Rupee(balance);
-
-        assertEquals(expectedAmount, actualAmount);
-
-
-    }
-
-    @Test
-    public void shouldNotAbleToAddRupeeWhenNegative() throws Exception{
-        double amount = -10;
-
-        assertThrows(Exception.class, () ->  {
-            Rupee rupee = new Rupee(amount);
-        });
-
-
-    }
-
-    @Test
-    public void shouldAbleToAddTenDollarWhenTenDollarIsGiven() throws Exception{
-        double amount =10;
-        double balance = 10;
+        Money money  = new Money(amount, Money.currencyType.RUPEE);
         Wallet wallet = new Wallet();
 
-        assertDoesNotThrow( () -> {
-            Dollar dollar = new Dollar(amount);
-        });
+        wallet.put(money);
+        Money expectedBalance = new Money(amount, Money.currencyType.RUPEE);
+        Money actualBalance = wallet.getBalance();
 
-        Dollar dollar = new Dollar(amount);
-        wallet.put(dollar);
-        Dollar actualAmount = wallet.getDollarBalance();
-        Dollar expectedAmount = new Dollar(balance);
-
-        assertEquals(expectedAmount, actualAmount);
-
-
+        assertTrue(expectedBalance.equals(actualBalance));
 
     }
 
     @Test
-    public void shouldNotAbleToAddDollarWhenNegative() throws Exception{
-        double amount = -10;
+    public void shouldAddAmountTenDollarToWalletWhenGiven() throws Exception{
+        double amount = 10.0;
+        double expectAmount = 823.0;
 
-        assertThrows(Exception.class, () ->  {
-            Dollar dollar  = new Dollar(amount);
+        assertDoesNotThrow(() ->{
+            Money money  = new Money(amount, Money.currencyType.DOLLAR);
         });
 
+        Money money  = new Money(amount, Money.currencyType.DOLLAR);
+        Wallet wallet = new Wallet();
+
+        wallet.put(money);
+        Money expectedBalance = new Money(expectAmount, Money.currencyType.RUPEE);
+        Money actualBalance = wallet.getBalance();
+
+        assertTrue(expectedBalance.equals(actualBalance));
 
     }
 
     @Test
-    public void shouldAbleToAddRupeeAndDollarAndProvideBalanceInRupee() throws Exception{
-        double amount = 2.0;
-        Wallet wallet  = new Wallet();
+    public void shouldAddTenRupeeAndTenDollarToWalletWhenGiven() throws Exception{
+        double amount = 10.0;
+        double expectedAmount = 833.0;
 
-        assertDoesNotThrow(() ->  {
-            Rupee rupee = new Rupee(amount);
-            Dollar dollar  = new Dollar(amount);
+        assertDoesNotThrow(() ->{
+            Money moneyInDollar = new Money(amount, Money.currencyType.DOLLAR);
+            Money moneyInRupee  = new Money(amount, Money.currencyType.RUPEE);
         });
 
-        Rupee rupee = new Rupee(amount);
-        Dollar dollar  = new Dollar(amount);
-        wallet.put(rupee);
-        wallet.put(dollar);
-        Rupee expectedBalance = new Rupee(162.0);
-        Rupee actualBalance = wallet.getTotalBalance();
+        Money moneyInDollar  = new Money(amount, Money.currencyType.DOLLAR);
+        Money moneyInRupee  = new Money(amount, Money.currencyType.RUPEE);
+        Wallet wallet = new Wallet();
 
-        assertEquals(expectedBalance, actualBalance);
+        wallet.put(moneyInRupee);
+        wallet.put(moneyInDollar);
+        Money expectedBalance = new Money(expectedAmount, Money.currencyType.RUPEE);
+        Money actualBalance = wallet.getBalance();
+
+        assertTrue(expectedBalance.equals(actualBalance));
 
     }
+
+    @Test
+    public void shouldNotAddNegativeMoneyToWalletWhenGiven() throws Exception{
+        double amount = -10.0;
+
+        assertThrows(Exception.class, () ->{
+            Money money = new Money(amount, Money.currencyType.RUPEE);
+        });
+    }
+
+
 }
