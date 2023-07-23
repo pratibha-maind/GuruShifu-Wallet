@@ -13,6 +13,10 @@ public class Wallet {
         balance = balance.add(money);
 
     }
+
+    public void takeOut(Money money) throws Exception{
+        balance = balance.remove(money);
+    }
     public Money getBalance()
     {
         return balance;
